@@ -1,6 +1,6 @@
 # CCA_Preparation
 
-In this repository we are using cloudera VM for CCA exams preparation:
+In this repository we are using cloudera VM(cdh5.8.0) for CCA exams preparation:
 
 HDFS path and port in cloudera VM:
 > hdfs://quickstart.cloudera:8020
