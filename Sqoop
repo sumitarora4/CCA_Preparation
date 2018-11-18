@@ -12,16 +12,27 @@ Commands are given below:
 
 
 Make connection and show list of databases available in mysql through Sqoop command:
-
 sqoop list-databases \
 --connect jdbc:mysql://quickstart.cloudera:3306 \
 --username root \
 --password cloudera \
 
 Show list of tables in retail_db:
-
 sqoop list-tables \
 --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
 --username root \
 --password cloudera \
 
+to insert single record into table using eval command:
+sqoop eval \
+--connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username root \
+--password cloudera \
+--query "insert into orders values(10000, \"2017-09-12 00:00:00.0\", 10000, \"DUMMY\")" 
+
+validate insert through eval command:
+sqoop eval \
+--connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username root \
+--password cloudera \
+--query "select * from orders order by order_id desc limit 10"
