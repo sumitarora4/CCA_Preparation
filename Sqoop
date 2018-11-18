@@ -3,26 +3,24 @@ Using Sqoop Version 1.4.6.
 At firs Connect to mysql Db in Cloudera VM.
 Commands are given below:
 
-```ruby
+
 > mysql -uroot -pcloudera
 > show databases;
 > use retail_db;
 > show tables;
 > describe orders;
-```
 
-make connection and show list of databases available in mysql through Sqoop command:
 
-> sqoop list-databases \
+Make connection and show list of databases available in mysql through Sqoop command:
+
+sqoop list-databases \
 --connect jdbc:mysql://quickstart.cloudera:3306 \
 --username root \
 --password cloudera \
 
+Show list of tables in retail_db:
 
-
-show list of tables in retail_db:
-
-> sqoop list-tables \
+sqoop list-tables \
 --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
 --username root \
 --password cloudera \
