@@ -1,4 +1,6 @@
-Connect to mysql Db in Cloudera VM.
+Using Sqoop Version 1.4.6.
+
+At firs Connect to mysql Db in Cloudera VM.
 Commands are given below:
 
 > mysql -uroot -pcloudera
