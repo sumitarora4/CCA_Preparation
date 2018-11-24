@@ -36,3 +36,14 @@ sqoop eval \
 --username root \
 --password cloudera \
 --query "select * from orders order by order_id desc limit 10"
+
+import retail_db at hdfs location in part file format:
+sqoop import \
+--connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--target-dir /home/cloudera/Desktop/sumit/sqoopImport/retail_db
+
+check content of first part of file:
+hdfs dfs -tail /home/cloudera/Desktop/sumit/sqoopImport/retail_db/part-m-00000
