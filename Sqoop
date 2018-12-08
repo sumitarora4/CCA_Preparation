@@ -51,3 +51,16 @@ the name of table after your given location.
 
 check content of first part of file:
 hdfs dfs -tail /home/cloudera/Desktop/sumit/sqoopImport/retail_db/part-m-00000
+
+If you want to control no. of mappers or split/thread to complete your task use --num-mappers tag with import command. For small
+data file use less mappers, this will increase sqoop command performance. By default value of mappers is 4.
+sqoop import \
+--connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username root \
+--password cloudera \
+--table order_items \
+--warehouse-dir /home/cloudera/Desktop/sumit/sqoopImport/retail_db \
+--num-mappers 1
+
+
+
