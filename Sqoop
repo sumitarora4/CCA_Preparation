@@ -45,5 +45,9 @@ sqoop import \
 --table order_items \
 --target-dir /home/cloudera/Desktop/sumit/sqoopImport/retail_db
 
+for --target-dir location should not be existed before hitting sqoop import command, we can also use --warehouse-dir instead of 
+--target-dir . For --warehouse-dir we can give already existed location here and --warehouse-dir command make a new directory with 
+the name of table after your given location.
+
 check content of first part of file:
 hdfs dfs -tail /home/cloudera/Desktop/sumit/sqoopImport/retail_db/part-m-00000
