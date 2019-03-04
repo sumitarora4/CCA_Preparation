@@ -10,3 +10,18 @@ val sc = new SparkContext(conf)
 
 // to show all spark configuration
 sc.getConf.getAll.foreach(println)
+
+//to preview the data
+hdfs dfs -tail /public/retail_db/orders/part-00000
+
+//converting hdfs resource or part file into rdd
+// no need to give absolute path of file, folder path is enough
+val orders = sc.textFile("/public/retail_db/orders")
+orders.first
+orders.take(10)
+
+//converting local file system resource or part file into rdd
+val productRaw = scala.io.Source.fromFile("/home/cloudera/Desktop/data-master/retail_db/products/part-00000").getLines.toList
+val productRDD = sc.parallelize(productRaw)
+productRDD.take(10)
+
