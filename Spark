@@ -1,0 +1,12 @@
+spark-shell --master yarn \
+  --conf spark.ui.port=12654 \
+  --num-executors 1 \
+  --executor-memory 512M
+
+// intialize programtically 
+import org.apache.spark.{SparkConf, SparkContext}
+val conf = new SparkConf().setAppName("DailyRevenue").setMaster("yarn-client")
+val sc = new SparkContext(conf)
+
+// to show all spark configuration
+sc.getConf.getAll.foreach(println)
