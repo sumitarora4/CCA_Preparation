@@ -1,0 +1,31 @@
+val orders = sc.textFile("hdfs://localhost:8020/public/retail_db/orders/")
+val productRaw = scala.io.Source.fromFile("/Sumit/HadoopShareViaWiFi/data-master/retail_db/products/part-00000").getLines.toList
+val products = sc.parallelize(productRaw)
+
+
+// make sqlContext in Spark 2.2
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+val order_json = sqlContext.read.json("hdfs://localhost:8020/public/retail_db_json/orders/")  // this will return Dataframe
+
+// also we can use sqlConext.load instead of sqlContext.read.json
+sqlContext.load("hdfs://localhost:8020/public/retail_db_json/orders/","json").show() // this will return Dataframe
+
+
+
+val str = orders.first.split(",").(1).substring(0,10)n
+ val orderDates = orders.map((str:String) => {str.split(",")(1).substring(0,10).replace("-","").toInt})
+
+
+val orderPairedRDD = orders.map(order => {
+val o = order.split(",")
+(o(0).toInt, o(1).substring(0,10).replace("-","").toInt)
+})
+
+
+val orderItems = sc.textFile("hdfs://localhost:8020/public/retail_db/order_items/")
+
+val orderItemsPairedRDD = orderItems.map(orderItem => {
+val o = orderItem.split(",")
+(o(1).toInt, orderItem)
+
+})
