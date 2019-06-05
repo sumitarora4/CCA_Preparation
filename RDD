@@ -110,4 +110,4 @@ val o = order.split(",")
 (o(3) == "COMPLETE" || o(3) == "CLOSED") && o(1).contains("2013-09")
 })
 
-
+ordersFiltered.take(10).foreach(println)
