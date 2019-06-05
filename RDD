@@ -29,3 +29,85 @@ val o = orderItem.split(",")
 (o(1).toInt, orderItem)
 
 })
+
+// ===============================
+// Map and FlatMap
+val ll = List("HI", "How are you","kuch to kaho","Nij na kaho","Sanu ki", "tuannu ki")
+
+ val ll_RDD = sc.parallelize(ll)
+val res_flatMap = ll_RDD.flatMap(e => e.split(" "))
+// return RDD of String
+
+res_flatMap.collect.foreach(println)
+// will return each String like below
+HI
+How
+are
+you
+kuch
+to
+kaho
+Nij
+na
+kaho
+Sanu
+ki
+tuannu
+ki
+
+val res_map = ll_RDD.map(e => e.split(" "))
+// will return RDD of Array of String
+
+res_map.collect.foreach(println)
+// will return Array like below
+
+[Ljava.lang.String;@3fc6ae7b
+[Ljava.lang.String;@96160a
+[Ljava.lang.String;@2ff19dab
+[Ljava.lang.String;@4caa28a5
+[Ljava.lang.String;@4615e23d
+[Ljava.lang.String;@76838ab3
+
+// World Count Program  =========
+
+// Flat map will give world count 
+res_flatMap.map(world =>(world,1)).countByKey
+res11: scala.collection.Map[String,Long] = Map(are -> 1, How -> 1, tuannu -> 1, Sanu -> 1, kuch -> 1, ki -> 2, to -> 1, you -> 1, Nij -> 1, kaho -> 2, na -> 1, HI -> 1
+
+// Map will give Exception for World count
+res_map.map(world =>(world,1)).countByKey
+org.apache.spark.SparkException: Cannot use map-side combining with array keys.
+
+
+// ===========
+// filtering Data
+filtering are of two types:
+
+1. Vertical 
+2. Horizontal
+
+// for vertical filtering columns are used like what are unique status for orders
+
+Here map would be used like below:
+orders.map(or => or.split(",")(3)).distinct.collect.foreach(println)
+ 
+// for horizontal filtering rows are used like what are completed orders
+
+Here filter would be used:
+val completeOrders = orders.filter(order => order.split(",")(3) == "COMPLETE")
+completeOrders.take(10).foreach(println)
+
+// we can use contains instead of split
+
+s.contains("COMPLETE") || s.contains("CLOSED")
+
+
+// E.g. Get all the orders from 2013-09 which are in closed or completed
+As here we need to search rows which are CLOSED or COMPLETED from the data hence filter will use
+
+val ordersFiltered = orders.filter(order => {
+val o = order.split(",")
+(o(3) == "COMPLETE" || o(3) == "CLOSED") && o(1).contains("2013-09")
+})
+
+
